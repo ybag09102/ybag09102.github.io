@@ -48,9 +48,14 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
-
-  transform: scale(0.8);
   transform-origin: top center;
+  transition: transform 0.3s ease;
+}
+
+/* 카드 전체 크기 QR 모드에 따라 축소 */
+.card.qr-active {
+  transform: scale(0.8);
+  transform-origin: left center; /* 왼쪽으로 이동 */
 }
 
 /* 사진 */
@@ -64,15 +69,15 @@ body {
 
 /* 이름 */
 .name {
-  font-size:33px;
-  font-weight:700;
+  font-size:42.9px; /* 30% 증가 */
+  font-weight:900;
   margin-top:10px;
   text-align:left;
 }
 
 /* 정보 */
 .info {
-  font-size:21px;
+  font-size:27.3px; /* 30% 증가 */
   margin-top:6px;
   line-height:1.6;
   text-align:left;
@@ -80,12 +85,12 @@ body {
 
 /* 생일 */
 .birth {
-  font-size:26px;
+  font-size:33.8px; /* 30% 증가 */
 }
 
 /* 연한 글씨 */
 .light {
-  font-size:18px;
+  font-size:23.4px; /* 30% 증가 */
   color:#aaa;
   margin-top:6px;
   text-align:left;
@@ -126,7 +131,7 @@ input:checked + .slider::before {
 
 /* 시간 */
 .time {
-  font-size:16px;
+  font-size:20.8px; /* 30% 증가 */
   margin-top:5px;
   color:#777;
   text-align:left;
@@ -138,17 +143,17 @@ input:checked + .slider::before {
 /* 초 막대 */
 .bar {
   width:100%;
-  height:6px;
-  background:#e5e5e5;
+  height:7.8px; /* 30% 증가 */
   border-radius:10px;
   margin-top:6px;
   overflow:hidden;
+  background:#e5e5e5;
 }
 .bar-inner {
   height:100%;
   width:100%;
-  background:#4FC3F7;
-  transition:width 1s linear;
+  background: linear-gradient(to right, #4a6cff, #8e3cff); /* 사진 느낌 */
+  transition: width 1s linear;
 }
 
 /* 버튼 */
@@ -159,8 +164,8 @@ input:checked + .slider::before {
   padding:12px;
   text-align:center;
   border-radius:10px;
-  font-size:16px;
-  font-weight:600;
+  font-size:20.8px; /* 30% 증가 */
+  font-weight:700;
 }
 
 /* QR */
@@ -168,9 +173,11 @@ input:checked + .slider::before {
   display:none;
   text-align:center;
   margin-top:10px;
+  transform: scale(0.8); /* QR 뜰 때 카드보다 작게 */
+  transform-origin: left center; /* 왼쪽으로 이동 */
 }
 .qr img {
-  width:200px;
+  width:160px; /* 20% 축소 */
 }
 
 /* 숨김 */
@@ -187,7 +194,7 @@ input:checked + .slider::before {
   <div>운전면허증</div>
 </div>
 
-<div class="card">
+<div class="card" id="card">
 
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
 
@@ -256,15 +263,18 @@ function toggleAddr(){
 }
 
 function showQR(){
-  let qr = document.getElementById("qrBox");
-  let hide = document.querySelectorAll(".toggle-hide");
+  const qr = document.getElementById("qrBox");
+  const hide = document.querySelectorAll(".toggle-hide");
+  const card = document.getElementById("card");
 
   if(qr.style.display === "block"){
     qr.style.display = "none";
     hide.forEach(e => e.classList.remove("hidden"));
+    card.classList.remove("qr-active");
   } else {
     qr.style.display = "block";
     hide.forEach(e => e.classList.add("hidden"));
+    card.classList.add("qr-active");
   }
 }
 </script>
