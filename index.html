@@ -124,26 +124,15 @@ input:checked + .slider::before {
   transform:translateX(24px);
 }
 
-/* 바 */
-.bar-wrap {
-  margin-top:auto;
-  height:6px;
-  background:#e2e2e2;
-  border-radius:4px;
-  overflow:hidden;
-}
-.bar {
-  height:6px;
-  background:linear-gradient(to right, #4a6cff, #8e3cff);
-  width:100%;
-}
-
-/* 시간 (하늘색🔥) */
+/* 시간 */
 .time {
   font-size:16px;
   margin-top:5px;
-  color:#4FC3F7;
+  color:#777;
   text-align:left;
+}
+.sec {
+  color:#4FC3F7; /* 초만 하늘색🔥 */
 }
 
 /* 버튼 */
@@ -158,7 +147,7 @@ input:checked + .slider::before {
   font-weight:600;
 }
 
-/* QR */
+/* QR (정보 자리 차지) */
 .qr {
   display:none;
   text-align:center;
@@ -188,13 +177,21 @@ input:checked + .slider::before {
 
   <div class="name">박유건</div>
 
-  <div class="info">
-    060923 - 3173611<br>
-    <span id="addr" class="toggle-hide">경기도 양주시</span><br>
-    <span class="birth toggle-hide">2024.12.31</span>
+  <!-- 정보 묶음 -->
+  <div id="infoBlock">
+    <div class="info">
+      <div class="toggle-hide">060923 - 3173611</div>
+      <div id="addr" class="toggle-hide">경기도 양주시</div>
+      <div class="birth toggle-hide">2024.12.31</div>
+    </div>
+
+    <div class="light toggle-hide">경기도 양주시장</div>
   </div>
 
-  <div class="light toggle-hide">경기도 양주시장</div>
+  <!-- QR (같은 자리) -->
+  <div class="qr" id="qrBox">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
+  </div>
 
   <div class="switch">
     <label>
@@ -203,17 +200,11 @@ input:checked + .slider::before {
     </label>
   </div>
 
-  <div class="bar-wrap toggle-hide">
-    <div class="bar" id="bar"></div>
+  <div class="time" id="time">
+    남은시간 <span class="sec">30초</span>
   </div>
-
-  <div class="time toggle-hide" id="time">남은시간 30초</div>
 
   <div class="btn" onclick="showQR()">QR정보 표시</div>
-
-  <div class="qr" id="qrBox">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
-  </div>
 
 </div>
 
@@ -224,8 +215,7 @@ setInterval(()=>{
   time--;
   if(time < 0) time = 30;
 
-  document.getElementById("time").innerText = "남은시간 " + time + "초";
-  document.getElementById("bar").style.width = (time/30*100) + "%";
+  document.querySelector(".sec").innerText = time + "초";
 },1000);
 
 function toggleAddr(){
