@@ -9,65 +9,81 @@
 body {
   margin:0;
   background:#f4f5f7;
-  font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  font-family:-apple-system, BlinkMacSystemFont;
 }
 
-/* 상단 */
-.header {
-  padding:14px 16px;
-  font-size:17px;
+/* 상단 탭 */
+.tabs {
+  display:flex;
+  background:white;
+  padding:12px 16px;
   font-weight:600;
-  background:#fff;
-  border-bottom:1px solid #e6e6e6;
+  border-bottom:1px solid #e5e5e5;
+}
+.tabs div {
+  margin-right:20px;
+  opacity:0.4;
+}
+.tabs .active {
+  opacity:1;
+  border-bottom:2px solid black;
+  padding-bottom:4px;
 }
 
-/* 카드 */
+/* 카드 (9:16 비율🔥) */
 .card {
-  width:94%;
-  max-width:430px;
-  margin:14px auto;
-  background:#fff;
-  border-radius:16px;
-  padding:18px;
-  box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  width:92%;
+  max-width:420px;
+  aspect-ratio: 9/16;
+  margin:15px auto;
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
   position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
 }
 
-/* 프로필 */
+/* 사진 중앙 */
 .profile {
-  width:112px;
-  height:142px;
-  border-radius:6px;
+  width:120px;
+  height:150px;
+  border-radius:10px;
   object-fit:cover;
+  margin:0 auto;
 }
 
 /* 이름 */
 .name {
-  font-size:21px;
+  text-align:center;
+  font-size:22px;
   font-weight:700;
-  margin-top:8px;
+  margin-top:10px;
 }
 
 /* 정보 */
 .info {
+  text-align:center;
   font-size:14px;
-  color:#222;
-  line-height:1.5;
-  margin-top:3px;
+  margin-top:6px;
+  line-height:1.6;
 }
 
-/* 연한 텍스트 */
+/* 연한 글씨 */
 .light {
+  text-align:center;
   font-size:12px;
-  color:#b0b0b0;
+  color:#aaa;
   margin-top:6px;
 }
 
 /* 스위치 */
 .switch {
   position:absolute;
-  right:16px;
-  top:16px;
+  right:18px;
+  top:18px;
 }
 .switch input { display:none; }
 
@@ -82,7 +98,7 @@ body {
   content:"";
   width:18px;
   height:18px;
-  background:#fff;
+  background:white;
   border-radius:50%;
   position:absolute;
   top:2px;
@@ -90,7 +106,7 @@ body {
   transition:0.25s;
 }
 input:checked + .slider {
-  background:#000;
+  background:black;
 }
 input:checked + .slider::before {
   transform:translateX(20px);
@@ -98,7 +114,7 @@ input:checked + .slider::before {
 
 /* 바 */
 .bar-wrap {
-  margin-top:14px;
+  margin-top:auto;
   height:5px;
   background:#e2e2e2;
   border-radius:4px;
@@ -115,14 +131,15 @@ input:checked + .slider::before {
   font-size:12px;
   margin-top:5px;
   color:#777;
+  text-align:center;
 }
 
 /* 버튼 */
 .btn {
-  margin-top:16px;
-  background:#000;
-  color:#fff;
-  padding:11px;
+  margin-top:10px;
+  background:black;
+  color:white;
+  padding:10px;
   text-align:center;
   border-radius:10px;
   font-size:14px;
@@ -133,20 +150,24 @@ input:checked + .slider::before {
 .qr {
   display:none;
   text-align:center;
-  margin-top:14px;
+  margin-top:10px;
 }
 .qr img {
-  width:140px;
+  width:130px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">주민등록증</div>
+<div class="tabs">
+  <div class="active">주민등록증</div>
+  <div>운전면허증</div>
+</div>
 
 <div class="card">
 
+  <!-- 스위치 -->
   <div class="switch">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
@@ -154,10 +175,13 @@ input:checked + .slider::before {
     </label>
   </div>
 
+  <!-- 사진 -->
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
 
+  <!-- 이름 -->
   <div class="name">박유건</div>
 
+  <!-- 정보 -->
   <div class="info">
     060923 - 3173611<br>
     <span id="addr">경기도 양주시</span><br>
@@ -166,9 +190,11 @@ input:checked + .slider::before {
 
   <div class="light">경기도 양주시장</div>
 
+  <!-- 하단 -->
   <div class="bar-wrap">
     <div class="bar" id="bar"></div>
   </div>
+
   <div class="time" id="time">남은시간 30초</div>
 
   <div class="btn" onclick="showQR()">QR정보 표시</div>
