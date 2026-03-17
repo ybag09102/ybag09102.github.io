@@ -60,7 +60,6 @@ body {
   border-radius:10px;
   object-fit:cover;
   margin:0 auto;
-  filter: brightness(1.05) contrast(1.08);
 }
 
 /* 이름 */
@@ -92,7 +91,7 @@ body {
   text-align:left;
 }
 
-/* 스위치 (생일 옆) */
+/* 스위치 */
 .switch {
   position:absolute;
   right:20px;
@@ -139,11 +138,11 @@ input:checked + .slider::before {
   width:100%;
 }
 
-/* 시간 */
+/* 시간 (하늘색🔥) */
 .time {
   font-size:16px;
   margin-top:5px;
-  color:#777;
+  color:#4FC3F7;
   text-align:left;
 }
 
@@ -162,9 +161,8 @@ input:checked + .slider::before {
 /* QR */
 .qr {
   display:none;
-  justify-content:center;
-  align-items:center;
-  height:100%;
+  text-align:center;
+  margin-top:10px;
 }
 .qr img {
   width:200px;
@@ -179,7 +177,6 @@ input:checked + .slider::before {
 
 <body>
 
-<!-- 상단 탭 (항상 유지) -->
 <div class="tabs">
   <div class="active">주민등록증</div>
   <div>운전면허증</div>
@@ -187,34 +184,33 @@ input:checked + .slider::before {
 
 <div class="card">
 
-  <img class="profile content" src="https://i.imgur.com/A3pRcPr.jpeg">
+  <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
 
-  <div class="name content">박유건</div>
+  <div class="name">박유건</div>
 
-  <div class="info content">
+  <div class="info">
     060923 - 3173611<br>
-    <span id="addr">경기도 양주시</span><br>
-    <span class="birth">2024.12.31</span>
+    <span id="addr" class="toggle-hide">경기도 양주시</span><br>
+    <span class="birth toggle-hide">2024.12.31</span>
   </div>
 
-  <div class="light content">경기도 양주시장</div>
+  <div class="light toggle-hide">경기도 양주시장</div>
 
-  <div class="switch content">
+  <div class="switch">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
       <div class="slider"></div>
     </label>
   </div>
 
-  <div class="bar-wrap content">
+  <div class="bar-wrap toggle-hide">
     <div class="bar" id="bar"></div>
   </div>
 
-  <div class="time content" id="time">남은시간 30초</div>
+  <div class="time toggle-hide" id="time">남은시간 30초</div>
 
-  <div class="btn content" onclick="showQR()">QR정보 표시</div>
+  <div class="btn" onclick="showQR()">QR정보 표시</div>
 
-  <!-- QR -->
   <div class="qr" id="qrBox">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
@@ -245,16 +241,14 @@ function toggleAddr(){
 
 function showQR(){
   let qr = document.getElementById("qrBox");
-  let contents = document.querySelectorAll(".content");
+  let hideItems = document.querySelectorAll(".toggle-hide");
 
-  if(qr.style.display === "flex"){
-    // 🔁 다시 원래로
+  if(qr.style.display === "block"){
     qr.style.display = "none";
-    contents.forEach(e => e.classList.remove("hidden"));
+    hideItems.forEach(e => e.classList.remove("hidden"));
   } else {
-    // 🔳 QR 표시
-    qr.style.display = "flex";
-    contents.forEach(e => e.classList.add("hidden"));
+    qr.style.display = "block";
+    hideItems.forEach(e => e.classList.add("hidden"));
   }
 }
 </script>
