@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>모바일 신분증</title>
+<style>
+  body {
+    background:#e9ecef;
+    font-family:sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+
+  .card {
+    width:300px;
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+  }
+
+  .profile {
+    width:100px;
+    height:120px;
+    object-fit:cover;
+    border-radius:10px;
+  }
+
+  h2 {
+    margin:10px 0;
+  }
+
+  .info {
+    font-size:14px;
+    text-align:left;
+    margin-top:10px;
+  }
+
+  .bar {
+    height:6px;
+    background:linear-gradient(to right, blue, purple);
+    margin-top:15px;
+    border-radius:5px;
+  }
+
+  .btn {
+    margin-top:20px;
+    background:black;
+    color:white;
+    padding:10px;
+    border-radius:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <img class="profile" src="https://via.placeholder.com/100x120">
+
+  <h2>홍길동</h2>
+
+  <div class="info">
+    010101 - 1234567<br>
+    서울특별시 어딘가<br>
+    2026.12.31
+  </div>
+
+  <div class="bar"></div>
+
+  <div class="btn">QR정보 표시</div>
+</div>
+
+</body>
+</html>
