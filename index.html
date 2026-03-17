@@ -8,84 +8,93 @@
 <style>
 body {
   margin:0;
-  background:#e9ecef;
-  font-family:sans-serif;
+  background:#f2f3f5;
+  font-family:-apple-system, BlinkMacSystemFont;
+}
+
+/* 상태바 (아이폰 느낌) */
+.statusbar {
+  height:25px;
+  background:white;
+  display:flex;
+  justify-content:space-between;
+  padding:0 10px;
+  font-size:12px;
+  align-items:center;
 }
 
 /* 상단 */
-.tabs {
-  display:flex;
-  background:white;
+.header {
   padding:15px;
+  font-size:18px;
   font-weight:bold;
-}
-.tabs div {
-  margin-right:20px;
-  opacity:0.5;
-}
-.tabs .active {
-  border-bottom:3px solid black;
-  opacity:1;
+  background:white;
+  border-bottom:1px solid #ddd;
 }
 
 /* 카드 */
 .card {
-  width:95%;
+  width:92%;
   max-width:420px;
   margin:20px auto;
   background:white;
   border-radius:20px;
   padding:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
   position:relative;
 }
 
 /* 프로필 */
 .profile {
-  width:130px;
-  height:160px;
+  width:110px;
+  height:140px;
+  border-radius:8px;
   object-fit:cover;
-  border-radius:10px;
-  display:block;
-  margin:auto;
 }
 
+/* 이름 */
 .name {
-  text-align:center;
   font-size:22px;
-  margin-top:10px;
   font-weight:bold;
+  margin-top:10px;
 }
 
+/* 정보 */
 .info {
-  margin-top:10px;
   font-size:14px;
+  margin-top:5px;
+}
+
+/* 연한 글씨 */
+.light {
+  font-size:12px;
+  color:#999;
+  margin-top:3px;
 }
 
 /* 스위치 */
 .switch {
   position:absolute;
   right:20px;
-  top:120px;
+  top:20px;
 }
 .switch input { display:none; }
 
 .slider {
-  width:50px;
-  height:25px;
+  width:45px;
+  height:24px;
   background:#ccc;
   border-radius:30px;
   position:relative;
-  cursor:pointer;
 }
 .slider::before {
   content:"";
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   background:white;
   border-radius:50%;
   position:absolute;
-  top:2.5px;
+  top:3px;
   left:3px;
   transition:0.3s;
 }
@@ -93,39 +102,38 @@ input:checked + .slider {
   background:black;
 }
 input:checked + .slider::before {
-  transform:translateX(24px);
+  transform:translateX(21px);
 }
 
 /* 바 */
 .bar-wrap {
-  background:#ddd;
-  height:6px;
-  border-radius:5px;
   margin-top:15px;
+  height:5px;
+  background:#ddd;
+  border-radius:5px;
   overflow:hidden;
 }
 .bar {
-  height:6px;
+  height:5px;
   background:linear-gradient(to right, blue, purple);
   width:100%;
 }
 
 /* 시간 */
 .time {
-  font-size:13px;
+  font-size:12px;
   margin-top:5px;
-  color:#555;
+  color:#666;
 }
 
 /* 버튼 */
 .btn {
-  margin-top:20px;
+  margin-top:15px;
   background:black;
   color:white;
-  padding:12px;
+  padding:10px;
   text-align:center;
-  border-radius:12px;
-  font-weight:bold;
+  border-radius:10px;
 }
 
 /* QR */
@@ -135,59 +143,54 @@ input:checked + .slider::before {
   margin-top:15px;
 }
 .qr img {
-  width:150px;
-}
-
-/* 애니메이션 */
-.fade {
-  animation:fade 0.5s;
-}
-@keyframes fade {
-  from {opacity:0;}
-  to {opacity:1;}
+  width:140px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="tabs">
-  <div class="active">주민등록증</div>
-  <div>운전면허증</div>
+<!-- 상태바 -->
+<div class="statusbar">
+  <div>23:41</div>
+  <div>📶 🔋</div>
 </div>
 
-<div class="card fade">
+<!-- 상단 -->
+<div class="header">주민등록증</div>
 
-  <img class="profile" id="profile" src="https://via.placeholder.com/130x160">
-
-  <div class="name" id="name">홍길동</div>
-
-  <div class="info">
-    <span id="num">060923 - 3173611</span><br>
-    <span id="addr"경기도 양주시 옥정서로 72 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호</span><br>
-    <span id="date">2024.12.31</span>
-  </div>
+<div class="card">
 
   <!-- 스위치 -->
   <div class="switch">
     <label>
-      <input type="checkbox">
+      <input type="checkbox" id="toggle" onchange="toggleAddr()">
       <div class="slider"></div>
     </label>
   </div>
 
-  <!-- 바 -->
+  <!-- 🔥 여기 사진 바꾸면 됨 -->
+  <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
+
+  <div class="name">박유건</div>
+
+  <div class="info">
+    060923 - 3173611<br>
+    <span id="addr">경기도 양주시</span><br>
+    2024.12.31
+  </div>
+
+  <div class="light">경기도 양주시장</div>
+
   <div class="bar-wrap">
     <div class="bar" id="bar"></div>
   </div>
   <div class="time" id="time">남은시간 30초</div>
 
-  <!-- 버튼 -->
   <div class="btn" onclick="showQR()">QR정보 표시</div>
 
-  <!-- QR -->
   <div class="qr" id="qrBox">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=hello">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=random">
   </div>
 
 </div>
@@ -203,9 +206,28 @@ setInterval(()=>{
   document.getElementById("bar").style.width = (time/30*100) + "%";
 },1000);
 
+function toggleAddr(){
+  let toggle = document.getElementById("toggle");
+  let addr = document.getElementById("addr");
+
+  if(toggle.checked){
+    addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
+  } else {
+    addr.innerText = "경기도 양주시";
+  }
+}
+
 function showQR(){
   let qr = document.getElementById("qrBox");
-  qr.style.display = qr.style.display === "block" ? "none" : "block";
+  let toggle = document.querySelector(".switch");
+
+  if(qr.style.display === "block"){
+    qr.style.display = "none";
+    toggle.style.display = "block";
+  } else {
+    qr.style.display = "block";
+    toggle.style.display = "none";
+  }
 }
 </script>
 
