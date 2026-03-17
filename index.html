@@ -48,14 +48,9 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
-  transform-origin: top center;
-  transition: transform 0.3s ease;
-}
 
-/* QR 모드 */
-.card.qr-active {
   transform: scale(0.8);
-  transform-origin: left center;
+  transform-origin: top center;
 }
 
 /* 사진 */
@@ -69,15 +64,15 @@ body {
 
 /* 이름 */
 .name {
-  font-size:36.5px;
-  font-weight:900;
+  font-size:33px;
+  font-weight:700;
   margin-top:10px;
   text-align:left;
 }
 
 /* 정보 */
 .info {
-  font-size:23.2px;
+  font-size:21px;
   margin-top:6px;
   line-height:1.6;
   text-align:left;
@@ -85,12 +80,12 @@ body {
 
 /* 생일 */
 .birth {
-  font-size:28.7px;
+  font-size:26px;
 }
 
 /* 연한 글씨 */
 .light {
-  font-size:19.9px;
+  font-size:18px;
   color:#aaa;
   margin-top:6px;
   text-align:left;
@@ -131,7 +126,7 @@ input:checked + .slider::before {
 
 /* 시간 */
 .time {
-  font-size:17.7px;
+  font-size:16px;
   margin-top:5px;
   color:#777;
   text-align:left;
@@ -143,17 +138,17 @@ input:checked + .slider::before {
 /* 초 막대 */
 .bar {
   width:100%;
-  height:6.6px;
+  height:6px;
+  background:#e5e5e5;
   border-radius:10px;
   margin-top:6px;
   overflow:hidden;
-  background:#e5e5e5;
 }
 .bar-inner {
   height:100%;
   width:100%;
-  background: linear-gradient(to right, #4a6cff, #8e3cff);
-  transition: width 1s linear;
+  background:#4FC3F7;
+  transition:width 1s linear;
 }
 
 /* 버튼 */
@@ -164,8 +159,8 @@ input:checked + .slider::before {
   padding:12px;
   text-align:center;
   border-radius:10px;
-  font-size:17.7px;
-  font-weight:700;
+  font-size:16px;
+  font-weight:600;
 }
 
 /* QR */
@@ -173,11 +168,9 @@ input:checked + .slider::before {
   display:none;
   text-align:center;
   margin-top:10px;
-  transform: scale(0.8);
-  transform-origin: left center;
 }
 .qr img {
-  width:176px; /* 10% 확대 */
+  width:200px;
 }
 
 /* 숨김 */
@@ -194,12 +187,13 @@ input:checked + .slider::before {
   <div>운전면허증</div>
 </div>
 
-<div class="card" id="card">
+<div class="card">
 
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
 
   <div class="name">박유건</div>
 
+  <!-- 숨길 영역 -->
   <div id="infoBlock" class="toggle-hide">
     <div class="info">
       <div>060923 - 3173611</div>
@@ -209,10 +203,12 @@ input:checked + .slider::before {
     <div class="light">경기도 양주시장</div>
   </div>
 
+  <!-- QR -->
   <div class="qr" id="qrBox">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
 
+  <!-- 스위치 -->
   <div class="switch">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
@@ -220,6 +216,7 @@ input:checked + .slider::before {
     </label>
   </div>
 
+  <!-- 시간 + 바 -->
   <div id="timeBlock" class="toggle-hide">
     <div class="time">
       남은시간 <span class="sec" id="sec">30초</span>
@@ -259,18 +256,15 @@ function toggleAddr(){
 }
 
 function showQR(){
-  const qr = document.getElementById("qrBox");
-  const hide = document.querySelectorAll(".toggle-hide");
-  const card = document.getElementById("card");
+  let qr = document.getElementById("qrBox");
+  let hide = document.querySelectorAll(".toggle-hide");
 
   if(qr.style.display === "block"){
     qr.style.display = "none";
     hide.forEach(e => e.classList.remove("hidden"));
-    card.classList.remove("qr-active");
   } else {
     qr.style.display = "block";
     hide.forEach(e => e.classList.add("hidden"));
-    card.classList.add("qr-active");
   }
 }
 </script>
