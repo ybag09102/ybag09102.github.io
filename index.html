@@ -15,24 +15,13 @@ body {
   align-items:center;
 }
 
-/* 상단 탭 */
+/* 상단탭 (글씨 제거) */
 .tabs {
   width:100%;
   max-width:420px;
-  display:flex;
+  height:40px;
   background:white;
-  padding:12px 16px;
-  font-weight:600;
   border-bottom:1px solid #e5e5e5;
-}
-.tabs div {
-  margin-right:20px;
-  opacity:0.4;
-}
-.tabs .active {
-  opacity:1;
-  border-bottom:2px solid black;
-  padding-bottom:4px;
 }
 
 /* 카드 */
@@ -48,17 +37,15 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
 
-  /* 🔥 크기 30% 감소 */
-  transform: scale(0.7);
+  transform: scale(0.8);
   transform-origin: top center;
 }
 
-/* 사진 중앙 */
+/* 사진 (50% 증가) */
 .profile {
-  width:120px;
-  height:150px;
+  width:180px;
+  height:220px;
   border-radius:10px;
   object-fit:cover;
   margin:0 auto;
@@ -66,47 +53,52 @@ body {
 
 /* 이름 */
 .name {
-  text-align:center;
-  font-size:22px;
+  font-size:33px;
   font-weight:700;
   margin-top:10px;
+  text-align:left;
 }
 
 /* 정보 */
 .info {
-  text-align:center;
-  font-size:14px;
+  font-size:21px;
   margin-top:6px;
   line-height:1.6;
+  text-align:left;
+}
+
+/* 생일 크게 */
+.birth {
+  font-size:26px;
 }
 
 /* 연한 글씨 */
 .light {
-  text-align:center;
-  font-size:12px;
+  font-size:18px;
   color:#aaa;
   margin-top:6px;
+  text-align:left;
 }
 
 /* 스위치 */
 .switch {
   position:absolute;
-  right:18px;
-  top:18px;
+  right:20px;
+  top:270px;
 }
 .switch input { display:none; }
 
 .slider {
-  width:44px;
-  height:22px;
+  width:50px;
+  height:26px;
   background:#d9d9d9;
   border-radius:30px;
   position:relative;
 }
 .slider::before {
   content:"";
-  width:18px;
-  height:18px;
+  width:22px;
+  height:22px;
   background:white;
   border-radius:50%;
   position:absolute;
@@ -118,98 +110,102 @@ input:checked + .slider {
   background:black;
 }
 input:checked + .slider::before {
-  transform:translateX(20px);
+  transform:translateX(24px);
 }
 
 /* 바 */
 .bar-wrap {
   margin-top:auto;
-  height:5px;
+  height:6px;
   background:#e2e2e2;
   border-radius:4px;
   overflow:hidden;
 }
 .bar {
-  height:5px;
+  height:6px;
   background:linear-gradient(to right, #4a6cff, #8e3cff);
   width:100%;
 }
 
 /* 시간 */
 .time {
-  font-size:12px;
+  font-size:16px;
   margin-top:5px;
   color:#777;
-  text-align:center;
+  text-align:left;
 }
 
 /* 버튼 */
 .btn {
-  margin-top:10px;
+  margin-top:12px;
   background:black;
   color:white;
-  padding:10px;
+  padding:12px;
   text-align:center;
   border-radius:10px;
-  font-size:14px;
+  font-size:16px;
   font-weight:600;
 }
 
 /* QR */
 .qr {
   display:none;
-  text-align:center;
-  margin-top:10px;
+  justify-content:center;
+  align-items:center;
+  height:100%;
 }
 .qr img {
-  width:130px;
+  width:200px;
+}
+
+/* 숨김용 */
+.hidden {
+  display:none !important;
 }
 </style>
 </head>
 
 <body>
 
-<div class="tabs">
-  <div class="active">주민등록증</div>
-  <div>운전면허증</div>
-</div>
+<div class="tabs" id="tabs"></div>
 
 <div class="card">
 
+  <!-- 사진 -->
+  <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
+
+  <!-- 이름 -->
+  <div class="name content">박유건</div>
+
+  <!-- 정보 -->
+  <div class="info content">
+    060923 - 3173611<br>
+    <span id="addr">경기도 양주시</span><br>
+    <span class="birth">2024.12.31</span>
+  </div>
+
+  <div class="light content">경기도 양주시장</div>
+
   <!-- 스위치 -->
-  <div class="switch">
+  <div class="switch content">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
       <div class="slider"></div>
     </label>
   </div>
 
-  <!-- 사진 -->
-  <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
-
-  <!-- 이름 -->
-  <div class="name">박유건</div>
-
-  <!-- 정보 -->
-  <div class="info">
-    060923 - 3173611<br>
-    <span id="addr">경기도 양주시</span><br>
-    2024.12.31
-  </div>
-
-  <div class="light">경기도 양주시장</div>
-
   <!-- 하단 -->
-  <div class="bar-wrap">
+  <div class="bar-wrap content">
     <div class="bar" id="bar"></div>
   </div>
 
-  <div class="time" id="time">남은시간 30초</div>
+  <div class="time content" id="time">남은시간 30초</div>
 
-  <div class="btn" onclick="showQR()">QR정보 표시</div>
+  <div class="btn content" onclick="showQR()">QR정보 표시</div>
 
+  <!-- QR -->
   <div class="qr" id="qrBox">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=random">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
 
 </div>
@@ -238,14 +234,17 @@ function toggleAddr(){
 
 function showQR(){
   let qr = document.getElementById("qrBox");
-  let toggle = document.querySelector(".switch");
+  let contents = document.querySelectorAll(".content");
+  let tabs = document.getElementById("tabs");
 
-  if(qr.style.display === "block"){
+  if(qr.style.display === "flex"){
     qr.style.display = "none";
-    toggle.style.display = "block";
+    contents.forEach(e => e.classList.remove("hidden"));
+    tabs.classList.remove("hidden");
   } else {
-    qr.style.display = "block";
-    toggle.style.display = "none";
+    qr.style.display = "flex";
+    contents.forEach(e => e.classList.add("hidden"));
+    tabs.classList.add("hidden");
   }
 }
 </script>
