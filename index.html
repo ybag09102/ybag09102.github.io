@@ -15,6 +15,7 @@ body {
   align-items:center;
 }
 
+/* 상단 탭 */
 .tabs {
   width:100%;
   max-width:420px;
@@ -34,6 +35,7 @@ body {
   padding-bottom:4px;
 }
 
+/* 카드 */
 .card {
   width:92%;
   max-width:420px;
@@ -46,10 +48,9 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
-  transform: scale(0.8);
-  transform-origin: top center;
 }
 
+/* 사진 */
 .profile {
   width:180px;
   height:220px;
@@ -58,6 +59,7 @@ body {
   margin:0 auto;
 }
 
+/* 이름 */
 .name {
   font-size:33px;
   font-weight:700;
@@ -65,6 +67,7 @@ body {
   text-align:left;
 }
 
+/* 정보 */
 .info {
   font-size:21px;
   margin-top:6px;
@@ -72,10 +75,12 @@ body {
   text-align:left;
 }
 
+/* 생일 */
 .birth {
   font-size:26px;
 }
 
+/* 연한 글씨 */
 .light {
   font-size:18px;
   color:#aaa;
@@ -83,6 +88,7 @@ body {
   text-align:left;
 }
 
+/* 스위치 */
 .switch {
   position:absolute;
   right:20px;
@@ -115,6 +121,7 @@ input:checked + .slider::before {
   transform:translateX(24px);
 }
 
+/* 시간 */
 .time {
   font-size:16px;
   margin-top:5px;
@@ -125,6 +132,7 @@ input:checked + .slider::before {
   color:#4FC3F7;
 }
 
+/* 초 막대 */
 .bar {
   width:100%;
   height:6px;
@@ -140,6 +148,7 @@ input:checked + .slider::before {
   transition:width 1s linear;
 }
 
+/* 버튼 */
 .btn {
   margin-top:12px;
   background:black;
@@ -151,25 +160,44 @@ input:checked + .slider::before {
   font-weight:600;
 }
 
-/* QR와 왼쪽 정보 분리 */
-.qr-layout {
+/* QR 전체 화면 */
+.qr-full {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
   display:flex;
-  justify-content:space-between;
-  margin-top:20px;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  border-radius:20px;
 }
 
-.qr {
+/* QR */
+.qr-inner img {
+  width:220px;
+}
+
+/* 하단 정보 */
+.qr-info {
+  margin-top:20px;
   text-align:center;
 }
-.qr img {
-  width:200px;
+
+.qr-name {
+  font-size:24px;
+  font-weight:700;
 }
 
-.left-info {
-  text-align:left;
-  font-size:21px;
+.qr-sub {
+  font-size:16px;
+  color:#777;
+  margin-top:4px;
 }
 
+/* 숨김 */
 .hidden {
   display:none !important;
 }
@@ -189,26 +217,28 @@ input:checked + .slider::before {
 
   <div class="name">박유건</div>
 
-  <div id="infoBlock" class="toggle-hide">
+  <div id="infoBlock">
     <div class="info">
       <div>060923 - 3173611</div>
       <div id="addr">경기도 양주시 옥정동</div>
-      <div class="birth">24</div>
+      <div class="birth">24.12.31</div>
     </div>
     <div class="light">경기도 양주시장</div>
   </div>
 
-  <!-- QR + 왼쪽 정보 -->
-  <div class="qr-layout hidden" id="qrBox">
-    <div class="left-info">
-      <div id="leftAddr">경기도 양주시 옥정동</div>
-      <div id="leftBirth">24</div>
+  <!-- QR 전체 -->
+  <div class="qr-full hidden" id="qrFull">
+    <div class="qr-inner">
+      <img id="qrImg" src="">
     </div>
-    <div class="qr">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
+    <div class="qr-info">
+      <div class="qr-name">박유건</div>
+      <div class="qr-sub">경기도 양주시 옥정동</div>
+      <div class="qr-sub">24.12.31</div>
     </div>
   </div>
 
+  <!-- 스위치 -->
   <div class="switch">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
@@ -216,7 +246,8 @@ input:checked + .slider::before {
     </label>
   </div>
 
-  <div id="timeBlock" class="toggle-hide">
+  <!-- 시간 -->
+  <div id="timeBlock">
     <div class="time">
       남은시간 <span class="sec" id="sec">30초</span>
     </div>
@@ -232,9 +263,12 @@ input:checked + .slider::before {
 <script>
 let time = 30;
 
+// 초기 표시
+document.getElementById("sec").innerText = time + "초";
+
 setInterval(()=>{
   time--;
-  if(time < 0) time = 30;
+  if(time <= 0) time = 30;
 
   document.getElementById("sec").innerText = time + "초";
 
@@ -246,27 +280,28 @@ setInterval(()=>{
 function toggleAddr(){
   let toggle = document.getElementById("toggle");
   let addr = document.getElementById("addr");
-  let leftAddr = document.getElementById("leftAddr");
 
   if(toggle.checked){
-    addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
-    leftAddr.innerText = addr.innerText;
+    addr.innerText = "경기도 양주시 옥정서로 72 ...";
   } else {
     addr.innerText = "경기도 양주시 옥정동";
-    leftAddr.innerText = addr.innerText;
   }
 }
 
 function showQR(){
-  let qr = document.getElementById("qrBox");
-  let hide = document.querySelectorAll(".toggle-hide");
+  let qrFull = document.getElementById("qrFull");
+  let img = document.getElementById("qrImg");
 
-  if(qr.classList.contains("hidden")){
-    qr.classList.remove("hidden");
-    hide.forEach(e => e.classList.add("hidden"));
+  if(qrFull.classList.contains("hidden")){
+    let rand = Math.random().toString(36).substring(2);
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${rand}`;
+
+    qrFull.classList.remove("hidden");
+
+    // 타이머 리셋
+    time = 30;
   } else {
-    qr.classList.add("hidden");
-    hide.forEach(e => e.classList.remove("hidden"));
+    qrFull.classList.add("hidden");
   }
 }
 </script>
