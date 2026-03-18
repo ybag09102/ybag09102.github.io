@@ -15,42 +15,71 @@ body {
   align-items:center;
 }
 
-/* 상단 탭 */
+/* 상단 제목 */
+.header {
+  width:100%;
+  max-width:420px;
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  padding:14px 0;
+  background:white;
+  border-bottom:1px solid #eee;
+}
+
+/* 탭 */
 .tabs {
   width:100%;
   max-width:420px;
   display:flex;
+  justify-content:center;
+  gap:30px;
   background:white;
   padding:12px 16px;
   font-weight:600;
   border-bottom:1px solid #e5e5e5;
 }
-.tabs div {
-  margin-right:20px;
-  opacity:0.4;
-}
+.tabs div { opacity:0.4; }
 .tabs .active {
   opacity:1;
   border-bottom:2px solid black;
-  padding-bottom:4px;
 }
 
 /* 카드 */
 .card {
   width:92%;
   max-width:420px;
-  aspect-ratio: 9/16;
   margin:40px auto;
   background:white;
   border-radius:20px;
   padding:20px;
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
-  position:relative;
+}
+
+/* 기본 레이아웃 */
+.normal-layout {
   display:flex;
   flex-direction:column;
+  align-items:center;
+}
 
-  transform: scale(0.8);
-  transform-origin: top center;
+/* QR 레이아웃 */
+.qr-layout {
+  display:none;
+  width:100%;
+  align-items:center;
+  justify-content:space-between;
+}
+
+/* 왼쪽 정보 */
+.left-info {
+  font-size:18px;
+  line-height:1.6;
+}
+
+/* QR */
+.qr-right img {
+  width:140px;
 }
 
 /* 사진 */
@@ -59,83 +88,47 @@ body {
   height:220px;
   border-radius:10px;
   object-fit:cover;
-  margin:0 auto;
 }
 
 /* 이름 */
 .name {
-  font-size:33px;
+  font-size:32px;
   font-weight:700;
   margin-top:10px;
-  text-align:left;
+  align-self:flex-start;
 }
 
 /* 정보 */
 .info {
-  font-size:21px;
+  font-size:20px;
   margin-top:6px;
   line-height:1.6;
-  text-align:left;
+  align-self:flex-start;
 }
 
-/* 생일 */
 .birth {
-  font-size:26px;
+  font-size:24px;
 }
 
-/* 연한 글씨 */
 .light {
-  font-size:18px;
+  font-size:16px;
   color:#aaa;
   margin-top:6px;
-  text-align:left;
-}
-
-/* 스위치 */
-.switch {
-  position:absolute;
-  right:20px;
-  top:270px;
-}
-.switch input { display:none; }
-
-.slider {
-  width:50px;
-  height:26px;
-  background:#d9d9d9;
-  border-radius:30px;
-  position:relative;
-}
-.slider::before {
-  content:"";
-  width:22px;
-  height:22px;
-  background:white;
-  border-radius:50%;
-  position:absolute;
-  top:2px;
-  left:3px;
-  transition:0.25s;
-}
-input:checked + .slider {
-  background:black;
-}
-input:checked + .slider::before {
-  transform:translateX(24px);
+  align-self:flex-start;
 }
 
 /* 시간 */
 .time {
-  font-size:16px;
-  margin-top:5px;
+  font-size:14px;
+  margin-top:10px;
   color:#777;
-  text-align:left;
+  align-self:flex-start;
 }
 .sec {
-  color:#4FC3F7;
+  color:#5b8cff;
 }
 
-/* 초 막대 */
+/* ===== 초 막대 ===== */
 .bar {
   width:100%;
   height:6px;
@@ -144,43 +137,38 @@ input:checked + .slider::before {
   margin-top:6px;
   overflow:hidden;
 }
+
 .bar-inner {
   height:100%;
   width:100%;
-  background:#4FC3F7;
-  transition:width 1s linear;
+  background: linear-gradient(
+    90deg,
+    #4facfe 0%,
+    #5b8cff 30%,
+    #6a3cff 60%,
+    #8e2cff 100%
+  );
+  transition: width 1s linear;
 }
+/* =================== */
 
 /* 버튼 */
 .btn {
-  margin-top:12px;
+  margin-top:14px;
   background:black;
   color:white;
   padding:12px;
+  width:100%;
   text-align:center;
   border-radius:10px;
-  font-size:16px;
   font-weight:600;
-}
-
-/* QR */
-.qr {
-  display:none;
-  text-align:center;
-  margin-top:10px;
-}
-.qr img {
-  width:200px;
-}
-
-/* 숨김 */
-.hidden {
-  display:none !important;
 }
 </style>
 </head>
 
 <body>
+
+<div class="header">모바일 신분증</div>
 
 <div class="tabs">
   <div class="active">주민등록증</div>
@@ -189,44 +177,42 @@ input:checked + .slider::before {
 
 <div class="card">
 
-  <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
+  <!-- 기본 화면 -->
+  <div id="normal" class="normal-layout">
+    <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
 
-  <div class="name">박유건</div>
+    <div class="name">박유건</div>
 
-  <!-- 숨길 영역 -->
-  <div id="infoBlock" class="toggle-hide">
     <div class="info">
       <div>060923 - 3173611</div>
-      <div id="addr">경기도 양주시</div>
+      <div>경기도 양주시 옥정동</div>
       <div class="birth">2024.12.31</div>
     </div>
+
     <div class="light">경기도 양주시장</div>
-  </div>
 
-  <!-- QR -->
-  <div class="qr" id="qrBox">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
-  </div>
-
-  <!-- 스위치 -->
-  <div class="switch">
-    <label>
-      <input type="checkbox" id="toggle" onchange="toggleAddr()">
-      <div class="slider"></div>
-    </label>
-  </div>
-
-  <!-- 시간 + 바 -->
-  <div id="timeBlock" class="toggle-hide">
     <div class="time">
       남은시간 <span class="sec" id="sec">30초</span>
     </div>
+
     <div class="bar">
       <div class="bar-inner" id="bar"></div>
     </div>
   </div>
 
-  <div class="btn" onclick="showQR()">QR정보 표시</div>
+  <!-- QR 화면 -->
+  <div id="qrLayout" class="qr-layout">
+    <div class="left-info">
+      <div>경기도 양주시</div>
+      <div class="birth">24.12.31</div>
+    </div>
+
+    <div class="qr-right">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
+    </div>
+  </div>
+
+  <div class="btn" onclick="toggleQR()">QR정보 표시</div>
 
 </div>
 
@@ -244,27 +230,16 @@ setInterval(()=>{
 
 },1000);
 
-function toggleAddr(){
-  let toggle = document.getElementById("toggle");
-  let addr = document.getElementById("addr");
+function toggleQR(){
+  const normal = document.getElementById("normal");
+  const qr = document.getElementById("qrLayout");
 
-  if(toggle.checked){
-    addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
-  } else {
-    addr.innerText = "경기도 양주시";
-  }
-}
-
-function showQR(){
-  let qr = document.getElementById("qrBox");
-  let hide = document.querySelectorAll(".toggle-hide");
-
-  if(qr.style.display === "block"){
+  if(qr.style.display === "flex"){
     qr.style.display = "none";
-    hide.forEach(e => e.classList.remove("hidden"));
+    normal.style.display = "flex";
   } else {
-    qr.style.display = "block";
-    hide.forEach(e => e.classList.add("hidden"));
+    qr.style.display = "flex";
+    normal.style.display = "none";
   }
 }
 </script>
