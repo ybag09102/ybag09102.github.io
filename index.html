@@ -76,11 +76,6 @@ body {
   line-height:1.6;
   text-align:left;
 }
-.info.hide-bg {
-  background: rgba(0,0,0,0.1); /* 흐릿한 배경 */
-  border-radius:8px;
-  padding:4px;
-}
 
 /* 생일 */
 .birth {
@@ -93,11 +88,6 @@ body {
   color:#aaa;
   margin-top:6px;
   text-align:left;
-}
-.light.hide-bg {
-  background: rgba(0,0,0,0.1);
-  border-radius:8px;
-  padding:2px 4px;
 }
 
 /* 스위치 */
@@ -140,11 +130,6 @@ input:checked + .slider::before {
   color:#777;
   text-align:left;
 }
-.time.hide-bg {
-  background: rgba(0,0,0,0.1);
-  border-radius:6px;
-  padding:2px 4px;
-}
 .sec {
   color:#4FC3F7;
 }
@@ -183,15 +168,10 @@ input:checked + .slider::before {
   position:absolute;
   top:50%;
   left:50%;
-  transform: translate(-50%, -50%) translate(90px, 30px); /* 오른쪽 90px, 아래 30px */
+  transform: translate(-50%, -50%) translate(90px, 30px);
 }
 .qr img {
   width:150px;
-}
-
-/* 숨김 */
-.hidden {
-  display:none !important;
 }
 </style>
 </head>
@@ -210,7 +190,7 @@ input:checked + .slider::before {
   <div class="name">박유건</div>
 
   <!-- 정보 -->
-  <div id="infoBlock" class="toggle-hide">
+  <div id="infoBlock">
     <div class="info" id="infoText">
       <div>060923 - 3173611</div>
       <div id="addr">경기도 양주시 옥정동</div>
@@ -233,7 +213,7 @@ input:checked + .slider::before {
   </div>
 
   <!-- 시간 + 바 -->
-  <div id="timeBlock" class="toggle-hide">
+  <div id="timeBlock">
     <div class="time" id="timeArea">
       남은시간 <span class="sec" id="sec">30초</span>
       <div class="bar">
@@ -282,18 +262,18 @@ function showQR(){
     qr.style.display = "none";
     switchBlock.style.display = "block";
 
-    // 배경 원래대로
-    infoText.classList.remove("hide-bg");
-    lightText.classList.remove("hide-bg");
-    timeArea.classList.remove("hide-bg");
+    // 글씨/막대 다시 보이게
+    infoText.style.opacity = "1";
+    lightText.style.opacity = "1";
+    timeArea.style.opacity = "1";
   } else {
     qr.style.display = "block";
     switchBlock.style.display = "none";
 
-    // 배경 흐림
-    infoText.classList.add("hide-bg");
-    lightText.classList.add("hide-bg");
-    timeArea.classList.add("hide-bg");
+    // 글씨/막대 안보이게
+    infoText.style.opacity = "0";
+    lightText.style.opacity = "0";
+    timeArea.style.opacity = "0";
   }
 }
 </script>
