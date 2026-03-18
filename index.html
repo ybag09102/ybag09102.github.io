@@ -77,9 +77,27 @@ body {
   text-align:left;
 }
 
+/* 주민등록번호 부분 */
+.reg-num {
+  display:flex;
+  gap:4px;
+}
+.reg-num .date {
+  font-weight:600;
+}
+.reg-num .number {
+  transition: opacity 0.3s;
+}
+
+/* 주소 */
+#addr {
+  display:inline-block;
+}
+
 /* 생일 */
 .birth {
   font-size:26px;
+  transition: opacity 0.3s;
 }
 
 /* 연한 글씨 */
@@ -88,6 +106,7 @@ body {
   color:#aaa;
   margin-top:6px;
   text-align:left;
+  transition: opacity 0.3s;
 }
 
 /* 스위치 */
@@ -129,6 +148,7 @@ input:checked + .slider::before {
   margin-top:5px;
   color:#777;
   text-align:left;
+  transition: opacity 0.3s;
 }
 .sec {
   color:#4FC3F7;
@@ -142,12 +162,13 @@ input:checked + .slider::before {
   border-radius:10px;
   margin-top:6px;
   overflow:hidden;
+  transition: opacity 0.3s;
 }
 .bar-inner {
   height:100%;
   width:100%;
   background: linear-gradient(to right, #4FC3F7, #9C27B0);
-  transition:width 1s linear;
+  transition:width 1s linear, opacity 0.3s;
 }
 
 /* 버튼 */
@@ -191,10 +212,13 @@ input:checked + .slider::before {
 
   <!-- 정보 -->
   <div id="infoBlock">
-    <div class="info" id="infoText">
-      <div>060923 - 3173611</div>
+    <div class="info">
+      <div class="reg-num">
+        <span class="date">06.09.23</span>
+        <span class="number" id="regNumber">- 3173611</span>
+      </div>
       <div id="addr">경기도 양주시 옥정동</div>
-      <div class="birth">24.12.31</div>
+      <div class="birth" id="birth">24.12.31</div>
     </div>
     <div class="light" id="lightText">경기도 양주시장</div>
   </div>
@@ -237,7 +261,6 @@ setInterval(()=>{
 
   let percent = (time / 30) * 100;
   document.getElementById("bar").style.width = percent + "%";
-
 },1000);
 
 function toggleAddr(){
@@ -254,7 +277,10 @@ function toggleAddr(){
 function showQR(){
   let qr = document.getElementById("qrBox");
   let switchBlock = document.getElementById("switchBlock");
-  let infoText = document.getElementById("infoText");
+
+  // 투명 처리할 요소들
+  let regNumber = document.getElementById("regNumber");
+  let birth = document.getElementById("birth");
   let lightText = document.getElementById("lightText");
   let timeArea = document.getElementById("timeArea");
 
@@ -262,16 +288,16 @@ function showQR(){
     qr.style.display = "none";
     switchBlock.style.display = "block";
 
-    // 글씨/막대 다시 보이게
-    infoText.style.opacity = "1";
+    regNumber.style.opacity = "1";
+    birth.style.opacity = "1";
     lightText.style.opacity = "1";
     timeArea.style.opacity = "1";
   } else {
     qr.style.display = "block";
     switchBlock.style.display = "none";
 
-    // 글씨/막대 안보이게
-    infoText.style.opacity = "0";
+    regNumber.style.opacity = "0"; // 3173611만 투명
+    birth.style.opacity = "0";
     lightText.style.opacity = "0";
     timeArea.style.opacity = "0";
   }
