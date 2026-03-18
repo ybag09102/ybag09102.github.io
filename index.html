@@ -15,7 +15,6 @@ body {
   align-items:center;
 }
 
-/* 상단 탭 */
 .tabs {
   width:100%;
   max-width:420px;
@@ -35,7 +34,6 @@ body {
   padding-bottom:4px;
 }
 
-/* 카드 */
 .card {
   width:92%;
   max-width:420px;
@@ -52,7 +50,6 @@ body {
   transform-origin: top center;
 }
 
-/* 사진 */
 .profile {
   width:180px;
   height:220px;
@@ -61,7 +58,6 @@ body {
   margin:0 auto;
 }
 
-/* 이름 */
 .name {
   font-size:33px;
   font-weight:700;
@@ -69,7 +65,6 @@ body {
   text-align:left;
 }
 
-/* 정보 */
 .info {
   font-size:21px;
   margin-top:6px;
@@ -77,7 +72,6 @@ body {
   text-align:left;
 }
 
-/* 주민등록번호 부분 */
 .reg-num {
   display:flex;
   gap:4px;
@@ -89,18 +83,15 @@ body {
   transition: opacity 0.3s;
 }
 
-/* 주소 */
 #addr {
   display:inline-block;
 }
 
-/* 생일 */
 .birth {
   font-size:26px;
   transition: opacity 0.3s;
 }
 
-/* 연한 글씨 */
 .light {
   font-size:18px;
   color:#aaa;
@@ -109,7 +100,6 @@ body {
   transition: opacity 0.3s;
 }
 
-/* 스위치 */
 .switch {
   position:absolute;
   right:20px;
@@ -142,7 +132,6 @@ input:checked + .slider::before {
   transform:translateX(24px);
 }
 
-/* 시간 */
 .time {
   font-size:16px;
   margin-top:5px;
@@ -154,7 +143,6 @@ input:checked + .slider::before {
   color:#4FC3F7;
 }
 
-/* 초 막대 */
 .bar {
   width:100%;
   height:6px;
@@ -171,7 +159,6 @@ input:checked + .slider::before {
   transition:width 1s linear, opacity 0.3s;
 }
 
-/* 버튼 */
 .btn {
   margin-top:12px;
   background:black;
@@ -183,7 +170,6 @@ input:checked + .slider::before {
   font-weight:600;
 }
 
-/* QR */
 .qr {
   display:none;
   position:absolute;
@@ -210,12 +196,11 @@ input:checked + .slider::before {
 
   <div class="name">박유건</div>
 
-  <!-- 정보 -->
   <div id="infoBlock">
     <div class="info">
       <div class="reg-num">
         <span class="date">060923</span>
-        <span class="number" id="regNumber">- 3173611</span>
+        <span class="number" id="regNumber">- •••••••</span>
       </div>
       <div id="addr">경기도 양주시 옥정동</div>
       <div class="birth" id="birth">24.12.31</div>
@@ -223,12 +208,10 @@ input:checked + .slider::before {
     <div class="light" id="lightText">경기도 양주시장</div>
   </div>
 
-  <!-- QR -->
   <div class="qr" id="qrBox">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
 
-  <!-- 스위치 -->
   <div class="switch" id="switchBlock">
     <label>
       <input type="checkbox" id="toggle" onchange="toggleAddr()">
@@ -236,7 +219,6 @@ input:checked + .slider::before {
     </label>
   </div>
 
-  <!-- 시간 + 바 -->
   <div id="timeBlock">
     <div class="time" id="timeArea">
       남은시간 <span class="sec" id="sec">30초</span>
@@ -266,11 +248,14 @@ setInterval(()=>{
 function toggleAddr(){
   let toggle = document.getElementById("toggle");
   let addr = document.getElementById("addr");
+  let regNumber = document.getElementById("regNumber");
 
   if(toggle.checked){
     addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
+    regNumber.innerText = "- 3173611";
   } else {
     addr.innerText = "경기도 양주시 옥정동";
+    regNumber.innerText = "- •••••••";
   }
 }
 
@@ -278,8 +263,7 @@ function showQR(){
   let qr = document.getElementById("qrBox");
   let switchBlock = document.getElementById("switchBlock");
 
-  // 투명 처리할 요소들
-  let regNumber = document.getElementById("regNumber"); // - 3173611
+  let regNumber = document.getElementById("regNumber");
   let birth = document.getElementById("birth");
   let lightText = document.getElementById("lightText");
   let timeArea = document.getElementById("timeArea");
@@ -296,7 +280,7 @@ function showQR(){
     qr.style.display = "block";
     switchBlock.style.display = "none";
 
-    regNumber.style.opacity = "0"; // 3173611만 투명
+    regNumber.style.opacity = "0";
     birth.style.opacity = "0";
     lightText.style.opacity = "0";
     timeArea.style.opacity = "0";
