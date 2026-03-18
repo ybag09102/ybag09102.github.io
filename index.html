@@ -147,7 +147,7 @@ input:checked + .slider::before {
 .bar-inner {
   height:100%;
   width:100%;
-  background: linear-gradient(to right, #4FC3F7, #9C27B0); /* 왼쪽 하늘색 -> 오른쪽 보라색 */
+  background: linear-gradient(to right, #4FC3F7, #9C27B0);
   transition:width 1s linear;
 }
 
@@ -168,12 +168,16 @@ input:checked + .slider::before {
   display:none;
   text-align:center;
   margin-top:10px;
+  position:absolute;
+  top:50%;
+  right:20px; /* 오른쪽으로 배치 */
+  transform: translateY(-50%);
 }
 .qr img {
-  width:200px;
+  width:150px; /* 크기 줄임 */
 }
 
-/* 숨김 */
+/* 숨김 (QR 눌렀을 때 추가 정보만 숨기기) */
 .hidden {
   display:none !important;
 }
@@ -193,7 +197,7 @@ input:checked + .slider::before {
 
   <div class="name">박유건</div>
 
-  <!-- 숨길 영역 -->
+  <!-- 숨길 영역: QR 눌러도 이름, 생일, 기본주소는 남김 -->
   <div id="infoBlock" class="toggle-hide">
     <div class="info">
       <div>060923 - 3173611</div>
@@ -264,7 +268,15 @@ function showQR(){
     hide.forEach(e => e.classList.remove("hidden"));
   } else {
     qr.style.display = "block";
-    hide.forEach(e => e.classList.add("hidden"));
+    // QR 누르면 숨길 추가 정보만 숨기고 이름/생일/기본주소는 남김
+    hide.forEach(e => {
+      let addr = document.getElementById("addr");
+      let birth = document.querySelector(".birth");
+      let infoChildren = e.querySelectorAll(".info > div:not(#addr):not(.birth)");
+      infoChildren.forEach(c => c.classList.add("hidden"));
+      let light = e.querySelector(".light");
+      if(light) light.classList.add("hidden");
+    });
   }
 }
 </script>
