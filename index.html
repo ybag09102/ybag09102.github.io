@@ -13,48 +13,44 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:20px 0;
 }
 
-/* 상단 */
-.header {
-  width:100%;
-  max-width:420px;
-  text-align:center;
-  font-size:18px;
-  font-weight:700;
-  padding:14px 0;
-  background:white;
-  border-bottom:1px solid #eee;
-}
-
+/* 상단 탭 */
 .tabs {
   width:100%;
   max-width:420px;
   display:flex;
-  justify-content:center;
-  gap:30px;
   background:white;
-  padding:12px;
+  padding:12px 16px;
+  font-weight:600;
   border-bottom:1px solid #e5e5e5;
 }
-.tabs div { opacity:0.4; }
-.tabs .active { opacity:1; border-bottom:2px solid black; }
+.tabs div {
+  margin-right:20px;
+  opacity:0.4;
+}
+.tabs .active {
+  opacity:1;
+  border-bottom:2px solid black;
+  padding-bottom:4px;
+}
 
 /* 카드 */
 .card {
-  width:90%; /* 좌우 여백 확보 */
+  width:92%;
   max-width:420px;
-  margin:20px auto;
+  aspect-ratio: 9/16;
+  margin:40px auto;
   background:white;
   border-radius:20px;
   padding:20px;
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
   position:relative;
-  min-height:480px; /* 카드 기본 높이 고정 */
   display:flex;
   flex-direction:column;
-  align-items:center;
+
+  transform: scale(0.8);
+  transform-origin: top center;
 }
 
 /* 사진 */
@@ -72,7 +68,6 @@ body {
   font-weight:700;
   margin-top:10px;
   text-align:left;
-  width:100%;
 }
 
 /* 정보 */
@@ -81,62 +76,19 @@ body {
   margin-top:6px;
   line-height:1.6;
   text-align:left;
-  width:100%;
 }
 
-/* 생일과 주소 간격 */
+/* 생일 */
 .birth {
   font-size:26px;
-  margin-bottom:12px;
 }
 
-/* 상세주소 조절 */
-#addr {
-  transition: all 0.25s ease;
-  overflow-wrap: break-word;
-}
-
-/* 가벼운 텍스트 */
+/* 연한 글씨 */
 .light {
   font-size:18px;
   color:#aaa;
   margin-top:6px;
   text-align:left;
-  width:100%;
-}
-
-/* 시간 */
-.time {
-  font-size:16px;
-  margin-top:5px;
-  color:#777;
-  text-align:left;
-  width:100%;
-}
-.sec {
-  color:#4FC3F7;
-}
-
-/* 초 막대 */
-.bar {
-  width:100%;
-  height:6px;
-  background:#e5e5e5;
-  border-radius:10px;
-  margin-top:6px;
-  overflow:hidden;
-}
-.bar-inner {
-  height:100%;
-  width:100%;
-  background: linear-gradient(
-    90deg,
-    #4facfe 0%,
-    #5b8cff 30%,
-    #6a3cff 60%,
-    #8e2cff 100%
-  );
-  transition:width 1s linear;
 }
 
 /* 스위치 */
@@ -146,6 +98,7 @@ body {
   top:270px;
 }
 .switch input { display:none; }
+
 .slider {
   width:50px;
   height:26px;
@@ -171,6 +124,33 @@ input:checked + .slider::before {
   transform:translateX(24px);
 }
 
+/* 시간 */
+.time {
+  font-size:16px;
+  margin-top:5px;
+  color:#777;
+  text-align:left;
+}
+.sec {
+  color:#4FC3F7;
+}
+
+/* 초 막대 */
+.bar {
+  width:100%;
+  height:6px;
+  background:#e5e5e5;
+  border-radius:10px;
+  margin-top:6px;
+  overflow:hidden;
+}
+.bar-inner {
+  height:100%;
+  width:100%;
+  background:#4FC3F7;
+  transition:width 1s linear;
+}
+
 /* 버튼 */
 .btn {
   margin-top:12px;
@@ -184,39 +164,49 @@ input:checked + .slider::before {
 }
 
 /* QR */
-.qr-container {
+.qr {
   display:none;
-  position:absolute;
-  top:120px;
-  left:60%;
+  text-align:center;
+  margin-top:10px;
 }
-.qr-container img {
-  width:120px;
+.qr img {
+  width:200px;
+}
+
+/* 숨김 */
+.hidden {
+  display:none !important;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">모바일 신분증</div>
-
 <div class="tabs">
   <div class="active">주민등록증</div>
   <div>운전면허증</div>
 </div>
 
-<div class="card" id="card">
+<div class="card">
 
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
+
   <div class="name">박유건</div>
 
-  <div class="info" id="fullInfo">
-    <div class="phone">060923 - 3173611</div>
-    <div id="addr">경기도 양주시 옥정동</div>
-    <div class="birth">24.12.31</div>
+  <!-- 숨길 영역 -->
+  <div id="infoBlock" class="toggle-hide">
+    <div class="info">
+      <div>060923 - 3173611</div>
+      <div id="addr">경기도 양주시</div>
+      <div class="birth">2024.12.31</div>
+    </div>
+    <div class="light">경기도 양주시장</div>
   </div>
 
-  <div class="light" id="lightInfo">경기도 양주시장</div>
+  <!-- QR -->
+  <div class="qr" id="qrBox">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
+  </div>
 
   <!-- 스위치 -->
   <div class="switch">
@@ -226,67 +216,55 @@ input:checked + .slider::before {
     </label>
   </div>
 
-  <div class="time">
-    남은시간 <span class="sec" id="sec">30초</span>
+  <!-- 시간 + 바 -->
+  <div id="timeBlock" class="toggle-hide">
+    <div class="time">
+      남은시간 <span class="sec" id="sec">30초</span>
+    </div>
+    <div class="bar">
+      <div class="bar-inner" id="bar"></div>
+    </div>
   </div>
 
-  <div class="bar">
-    <div class="bar-inner" id="bar"></div>
-  </div>
-
-  <!-- QR -->
-  <div class="qr-container" id="qrBox">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
-  </div>
-
-  <div class="btn" onclick="toggleQR()">QR정보 표시</div>
+  <div class="btn" onclick="showQR()">QR정보 표시</div>
 
 </div>
 
 <script>
 let time = 30;
+
 setInterval(()=>{
   time--;
   if(time < 0) time = 30;
+
   document.getElementById("sec").innerText = time + "초";
-  document.getElementById("bar").style.width = (time/30*100) + "%";
+
+  let percent = (time / 30) * 100;
+  document.getElementById("bar").style.width = percent + "%";
+
 },1000);
 
-/* 스위치 주소 변경 */
 function toggleAddr(){
-  const toggle = document.getElementById("toggle");
-  const addr = document.getElementById("addr");
+  let toggle = document.getElementById("toggle");
+  let addr = document.getElementById("addr");
 
   if(toggle.checked){
     addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
-    addr.style.whiteSpace = "normal"; // 줄바꿈 허용
   } else {
-    addr.innerText = "경기도 양주시 옥정동";
-    addr.style.whiteSpace = "nowrap"; // 한 줄
+    addr.innerText = "경기도 양주시";
   }
 }
 
-/* QR 토글 */
-function toggleQR(){
-  const qr = document.getElementById("qrBox");
-  const fullInfo = document.getElementById("fullInfo");
-  const lightInfo = document.getElementById("lightInfo");
-  const phoneElem = fullInfo.querySelector(".phone");
-  const birthElem = fullInfo.querySelector(".birth");
-  const addrElem = document.getElementById("addr");
+function showQR(){
+  let qr = document.getElementById("qrBox");
+  let hide = document.querySelectorAll(".toggle-hide");
 
   if(qr.style.display === "block"){
     qr.style.display = "none";
-    lightInfo.style.display = "block";
-    phoneElem.style.display = "block";
-    addrElem.style.display = "block";
-    birthElem.style.display = "block";
+    hide.forEach(e => e.classList.remove("hidden"));
   } else {
     qr.style.display = "block";
-    lightInfo.style.display = "none";
-    phoneElem.style.display = "none";
-    addrElem.style.display = "block";
-    birthElem.style.display = "block";
+    hide.forEach(e => e.classList.add("hidden"));
   }
 }
 </script>
