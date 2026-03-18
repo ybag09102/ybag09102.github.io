@@ -122,6 +122,38 @@ body {
   transition:width 1s linear;
 }
 
+/* 스위치 */
+.switch {
+  position:absolute;
+  right:20px;
+  top:270px;
+}
+.switch input { display:none; }
+.slider {
+  width:50px;
+  height:26px;
+  background:#d9d9d9;
+  border-radius:30px;
+  position:relative;
+}
+.slider::before {
+  content:"";
+  width:22px;
+  height:22px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:3px;
+  transition:0.25s;
+}
+input:checked + .slider {
+  background:black;
+}
+input:checked + .slider::before {
+  transform:translateX(24px);
+}
+
 /* 버튼 */
 .btn {
   margin-top:12px;
@@ -138,8 +170,8 @@ body {
 .qr-container {
   display:none;
   position:absolute;
-  top:60px; 
-  right:20px;
+  top:120px; /* 주소 옆 위치 조정 */
+  left:60%;  /* 카드 내부 왼쪽 여백 기준으로 위치 */
 }
 .qr-container img {
   width:120px;
@@ -161,6 +193,7 @@ body {
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
   <div class="name">박유건</div>
 
+  <!-- 왼쪽 정보 -->
   <div class="info" id="fullInfo">
     <div class="phone">060923 - 3173611</div>
     <div id="addr">경기도 양주시 옥정동</div>
@@ -168,6 +201,14 @@ body {
   </div>
 
   <div class="light" id="lightInfo">경기도 양주시장</div>
+
+  <!-- 스위치 -->
+  <div class="switch">
+    <label>
+      <input type="checkbox" id="toggle" onchange="toggleAddr()">
+      <div class="slider"></div>
+    </label>
+  </div>
 
   <div class="time">
     남은시간 <span class="sec" id="sec">30초</span>
@@ -177,6 +218,7 @@ body {
     <div class="bar-inner" id="bar"></div>
   </div>
 
+  <!-- QR -->
   <div class="qr-container" id="qrBox">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
@@ -194,6 +236,18 @@ setInterval(()=>{
   document.getElementById("bar").style.width = (time/30*100) + "%";
 },1000);
 
+/* 스위치 주소 변경 */
+function toggleAddr(){
+  const toggle = document.getElementById("toggle");
+  const addr = document.getElementById("addr");
+  if(toggle.checked){
+    addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
+  } else {
+    addr.innerText = "경기도 양주시 옥정동";
+  }
+}
+
+/* QR 토글 */
 function toggleQR(){
   const qr = document.getElementById("qrBox");
   const fullInfo = document.getElementById("fullInfo");
@@ -203,14 +257,12 @@ function toggleQR(){
   const addrElem = document.getElementById("addr");
 
   if(qr.style.display === "block"){
-    // QR 끄기 → 전체 정보 보이게
     qr.style.display = "none";
     lightInfo.style.display = "block";
     phoneElem.style.display = "block";
     addrElem.style.display = "block";
     birthElem.style.display = "block";
   } else {
-    // QR 켜기 → 주소 + 생일만
     qr.style.display = "block";
     lightInfo.style.display = "none";
     phoneElem.style.display = "none";
