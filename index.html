@@ -13,7 +13,7 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:20px 0; /* 상하 여백 확보 */
+  padding:20px 0;
 }
 
 /* 상단 */
@@ -43,14 +43,18 @@ body {
 
 /* 카드 */
 .card {
-  width:92%;
+  width:90%; /* 좌우 여백 확보 */
   max-width:420px;
-  margin:20px auto; /* 카드 주변 여백 */
+  margin:20px auto;
   background:white;
   border-radius:20px;
   padding:20px;
   box-shadow:0 5px 15px rgba(0,0,0,0.08);
   position:relative;
+  min-height:480px; /* 카드 기본 높이 고정 */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 /* 사진 */
@@ -68,6 +72,7 @@ body {
   font-weight:700;
   margin-top:10px;
   text-align:left;
+  width:100%;
 }
 
 /* 정보 */
@@ -76,17 +81,28 @@ body {
   margin-top:6px;
   line-height:1.6;
   text-align:left;
+  width:100%;
 }
 
+/* 생일과 주소 간격 */
 .birth {
   font-size:26px;
+  margin-bottom:12px;
 }
 
+/* 상세주소 조절 */
+#addr {
+  transition: all 0.25s ease;
+  overflow-wrap: break-word;
+}
+
+/* 가벼운 텍스트 */
 .light {
   font-size:18px;
   color:#aaa;
   margin-top:6px;
   text-align:left;
+  width:100%;
 }
 
 /* 시간 */
@@ -95,6 +111,7 @@ body {
   margin-top:5px;
   color:#777;
   text-align:left;
+  width:100%;
 }
 .sec {
   color:#4FC3F7;
@@ -170,8 +187,8 @@ input:checked + .slider::before {
 .qr-container {
   display:none;
   position:absolute;
-  top:120px; /* 주소 옆 위치 조정 */
-  left:60%;  /* 카드 내부 왼쪽 여백 기준으로 위치 */
+  top:120px;
+  left:60%;
 }
 .qr-container img {
   width:120px;
@@ -193,7 +210,6 @@ input:checked + .slider::before {
   <img class="profile" src="https://i.imgur.com/A3pRcPr.jpeg">
   <div class="name">박유건</div>
 
-  <!-- 왼쪽 정보 -->
   <div class="info" id="fullInfo">
     <div class="phone">060923 - 3173611</div>
     <div id="addr">경기도 양주시 옥정동</div>
@@ -240,10 +256,13 @@ setInterval(()=>{
 function toggleAddr(){
   const toggle = document.getElementById("toggle");
   const addr = document.getElementById("addr");
+
   if(toggle.checked){
     addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
+    addr.style.whiteSpace = "normal"; // 줄바꿈 허용
   } else {
     addr.innerText = "경기도 양주시 옥정동";
+    addr.style.whiteSpace = "nowrap"; // 한 줄
   }
 }
 
