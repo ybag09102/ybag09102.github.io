@@ -48,7 +48,6 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
-
   transform: scale(0.8);
   transform-origin: top center;
 }
@@ -127,7 +126,7 @@ input:checked + .slider::before {
 /* 시간 */
 .time {
   font-size:16px;
-  margin-top:270px; /* QR 이미지 위쪽으로 초 막대와 글씨 내려서 안 겹치게 */
+  margin-top:5px;
   color:#777;
   text-align:left;
 }
@@ -147,7 +146,7 @@ input:checked + .slider::before {
 .bar-inner {
   height:100%;
   width:100%;
-  background: linear-gradient(to right, #4FC3F7, #9C27B0);
+  background: linear-gradient(to right, #4FC3F7, #9C27B0); /* 왼쪽 하늘색 -> 오른쪽 보라색 */
   transition:width 1s linear;
 }
 
@@ -166,19 +165,13 @@ input:checked + .slider::before {
 /* QR */
 .qr {
   display:none;
-  text-align:center;
-  margin-top:10px;
   position:absolute;
-  top:50px; /* 카드 상단 기준 */
-  right:20px; /* 오른쪽 배치 */
+  top:50%; /* 카드 중앙 세로 */
+  left:60%; /* 화면 중앙 기준 오른쪽 */
+  transform: translate(-50%, -50%);
 }
 .qr img {
   width:150px; /* 크기 줄임 */
-}
-
-/* 숨김 */
-.hidden {
-  display:none !important;
 }
 </style>
 </head>
@@ -260,24 +253,11 @@ function toggleAddr(){
 
 function showQR(){
   let qr = document.getElementById("qrBox");
-  let hide = document.querySelectorAll(".toggle-hide");
 
   if(qr.style.display === "block"){
     qr.style.display = "none";
-    // QR 끄면 숨겼던 정보 모두 원래대로 보여주기
-    hide.forEach(e => {
-      let hiddenElems = e.querySelectorAll(".hidden");
-      hiddenElems.forEach(el => el.classList.remove("hidden"));
-    });
   } else {
     qr.style.display = "block";
-    // QR 누르면 이름/생일/주소는 그대로 두고 나머지 정보 숨기기
-    hide.forEach(e => {
-      let infoChildren = e.querySelectorAll(".info > div:not(#addr):not(.birth)");
-      infoChildren.forEach(c => c.classList.add("hidden"));
-      let light = e.querySelector(".light");
-      if(light) light.classList.add("hidden");
-    });
   }
 }
 </script>
