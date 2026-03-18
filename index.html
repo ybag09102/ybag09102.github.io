@@ -48,6 +48,9 @@ body {
   position:relative;
   display:flex;
   flex-direction:column;
+
+  transform: scale(0.8);
+  transform-origin: top center;
 }
 
 /* 사진 */
@@ -160,41 +163,14 @@ input:checked + .slider::before {
   font-weight:600;
 }
 
-/* QR 전체 화면 */
-.qr-full {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  border-radius:20px;
-}
-
 /* QR */
-.qr-inner img {
-  width:220px;
-}
-
-/* 하단 정보 */
-.qr-info {
-  margin-top:20px;
+.qr {
+  display:none;
   text-align:center;
+  margin-top:10px;
 }
-
-.qr-name {
-  font-size:24px;
-  font-weight:700;
-}
-
-.qr-sub {
-  font-size:16px;
-  color:#777;
-  margin-top:4px;
+.qr img {
+  width:200px;
 }
 
 /* 숨김 */
@@ -217,25 +193,19 @@ input:checked + .slider::before {
 
   <div class="name">박유건</div>
 
-  <div id="infoBlock">
+  <!-- 숨길 영역 -->
+  <div id="infoBlock" class="toggle-hide">
     <div class="info">
       <div>060923 - 3173611</div>
-      <div id="addr">경기도 양주시 옥정동</div>
-      <div class="birth">24.12.31</div>
+      <div id="addr">경기도 양주시</div>
+      <div class="birth">2024.12.31</div>
     </div>
     <div class="light">경기도 양주시장</div>
   </div>
 
-  <!-- QR 전체 -->
-  <div class="qr-full hidden" id="qrFull">
-    <div class="qr-inner">
-      <img id="qrImg" src="">
-    </div>
-    <div class="qr-info">
-      <div class="qr-name">박유건</div>
-      <div class="qr-sub">경기도 양주시 옥정동</div>
-      <div class="qr-sub">24.12.31</div>
-    </div>
+  <!-- QR -->
+  <div class="qr" id="qrBox">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=random">
   </div>
 
   <!-- 스위치 -->
@@ -246,8 +216,8 @@ input:checked + .slider::before {
     </label>
   </div>
 
-  <!-- 시간 -->
-  <div id="timeBlock">
+  <!-- 시간 + 바 -->
+  <div id="timeBlock" class="toggle-hide">
     <div class="time">
       남은시간 <span class="sec" id="sec">30초</span>
     </div>
@@ -263,12 +233,9 @@ input:checked + .slider::before {
 <script>
 let time = 30;
 
-// 초기 표시
-document.getElementById("sec").innerText = time + "초";
-
 setInterval(()=>{
   time--;
-  if(time <= 0) time = 30;
+  if(time < 0) time = 30;
 
   document.getElementById("sec").innerText = time + "초";
 
@@ -282,26 +249,22 @@ function toggleAddr(){
   let addr = document.getElementById("addr");
 
   if(toggle.checked){
-    addr.innerText = "경기도 양주시 옥정서로 72 ...";
+    addr.innerText = "경기도 양주시 옥정서로 72 옥정동 옥정중앙역 중흥S-클래스 센텀시티 1블록 111동 2003호";
   } else {
-    addr.innerText = "경기도 양주시 옥정동";
+    addr.innerText = "경기도 양주시";
   }
 }
 
 function showQR(){
-  let qrFull = document.getElementById("qrFull");
-  let img = document.getElementById("qrImg");
+  let qr = document.getElementById("qrBox");
+  let hide = document.querySelectorAll(".toggle-hide");
 
-  if(qrFull.classList.contains("hidden")){
-    let rand = Math.random().toString(36).substring(2);
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${rand}`;
-
-    qrFull.classList.remove("hidden");
-
-    // 타이머 리셋
-    time = 30;
+  if(qr.style.display === "block"){
+    qr.style.display = "none";
+    hide.forEach(e => e.classList.remove("hidden"));
   } else {
-    qrFull.classList.add("hidden");
+    qr.style.display = "block";
+    hide.forEach(e => e.classList.add("hidden"));
   }
 }
 </script>
